@@ -4,7 +4,7 @@ var clone= require('circularclone'),
 
 module.exports= function (opts)
 {
-   opts= _.defaults(opts,{ key: '_id', ref: '_ref' });
+   opts= _.defaults(opts || {},{ key: '_id', ref: '_ref' });
 
    var idmap= {},
        _contains= function (val)
