@@ -1,6 +1,6 @@
 {
   "name": "circular-region",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "description": "Attach and detach javascript object from object graphs",
   "main": "index.js",
   "scripts": {
