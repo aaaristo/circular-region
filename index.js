@@ -4,7 +4,7 @@ var clone= require('circularclone'),
 
 module.exports= function (opts)
 {
-   opts= _.defaults(opts || {},{ key: '_id', ref: '_ref' });
+   opts= _.defaults(opts || {},{ key: '_id', ref: '@' });
 
    var idmap= {},
        _contains= function (val)
@@ -44,9 +44,17 @@ module.exports= function (opts)
                 {
                   if (_contains(origValue))
                   {
-                     var r= {};
-                     r[opts.ref]= origValue[opts.key];
-                     return r;
+                     if (typeof key=='number')
+                     {
+                        var r= {};
+                        r[opts.ref]= origValue[opts.key];
+                        return r;
+                     }
+                     else
+                     {
+                        clone[opts.ref+key]= origValue[opts.key];
+                        return undefined;
+                     }
                   }
                   else
                     return clonedValue;
@@ -57,8 +65,14 @@ module.exports= function (opts)
              {
                 return clone(sub,function (key,clonedValue,clone,node,origValue)
                 {
-                  if (origValue[opts.ref])
+                  if (typeof key=='number'&&origValue[opts.ref]!==undefined)
                     return _get(origValue[opts.ref]);
+                  else
+                  if (key.indexOf(opts.ref)==0)
+                  {
+                    clone[key.substring(opts.ref.length)]= _get(origValue);
+                    return undefined;
+                  }
                   else
                     return clonedValue;
                 });

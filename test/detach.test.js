@@ -25,11 +25,11 @@ describe('region',function ()
                attached= reg.attach(detached);
 
            should.exist(detached); 
-           should.exist(detached.a._ref);
-           detached.a._ref.should.equal('Andrea');
-           detached.e._ref.should.equal('Elena');
-           detached.arr[0]._ref.should.equal('Andrea');
-           detached.arr[1]._ref.should.equal('Elena');
+           should.exist(detached['@a']);
+           detached['@a'].should.equal('Andrea');
+           detached['@e'].should.equal('Elena');
+           detached.arr[0]['@'].should.equal('Andrea');
+           detached.arr[1]['@'].should.equal('Elena');
            detached.x.should.equal(5);
 
            attached.a.should.equal(gph[0]); 
